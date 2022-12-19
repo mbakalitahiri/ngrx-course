@@ -1,0 +1,31 @@
+<div class="row g-3 align-items-center">
+  <div class="col-auto">
+    <button class="btn btn-success" (click)="onIncrement()">Incrementar</button>&nbsp;
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-warning" (click)="onDecrement()">Decrement</button>&nbsp;
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-primary" (click)="onReset()">Reset</button>
+
+  </div>
+  <div class="col-auto">
+    <input type="text" class="form-control" placeholder="Input a value" #custom>
+
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-danger" (click)="onCustom()">Submit</button>
+  </div>
+
+  <div class="col-auto">
+
+  </div>
+
+
+  <div class="row g-3 align-items-center">
+
+    <input type="text" class="form-control" placeholder="Inpute a new Developer" #developer>
+
+
+    <button class="btn btn-primary" (click)="onClickChangeDeveloper()">Submit</button>
+  </div>

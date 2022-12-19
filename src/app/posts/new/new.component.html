@@ -1,0 +1,46 @@
+<h3>Add new Post</h3>
+<form [formGroup]="postForm" class="d-flex" (ngSubmit)="onSubmit()">
+  <!-- <div class="col">
+    <div class="mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder=""
+        aria-describedby="helpId"
+        formControlName="id"
+        name="id"
+      />
+      <small id="helpId" class="text-muted">Id</small>
+    </div>
+  </div> -->
+  <div class="col">
+    <div class="mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder=""
+        aria-describedby="helpId"
+        formControlName="title"
+        name="title"
+      />
+      <small id="helpId" class="text-muted">Title</small>
+    </div>
+  </div>
+  <div class="col">
+    <div class="mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder=""
+        aria-describedby="helpId"
+        name="description"
+        formControlName="description"
+      />
+      <small id="helpId" class="text-muted">Description</small>
+    </div>
+  </div>
+
+  <div class="d-grid gap-2">
+    <button class="btn btn-primary" [disabled]="!postForm.valid">Button</button>
+  </div>
+</form>

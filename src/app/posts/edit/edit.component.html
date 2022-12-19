@@ -1,0 +1,50 @@
+<h3>Edit Post</h3>
+<form [formGroup]="updateForm" class="d-flex" (ngSubmit)="onUpdate()">
+  <div class="col">
+    <div class="mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder=""
+        aria-describedby="helpId"
+        formControlName="title"
+        name="title"
+      />
+      <small id="helpId" class="text-muted">Title</small>
+      <div
+        *ngIf="
+          updateForm.get('title')?.touched && !updateForm.get('title')?.valid
+        "
+      >
+        <span class="alert alert-warning">Title is Mandatory</span>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder=""
+        aria-describedby="helpId"
+        name="description"
+        formControlName="description"
+      />
+      <small id="helpId" class="text-muted">Description</small>
+    </div>
+    <div
+      *ngIf="
+        updateForm.get('description')?.touched &&
+        !updateForm.get('description')?.valid
+      "
+    >
+      <span class="alert alert-warning">Description is Mandatory</span>
+    </div>
+  </div>
+
+  <div class="d-grid gap-2">
+    <button class="btn btn-primary" [disabled]="!updateForm.valid">
+      Button
+    </button>
+  </div>
+</form>
