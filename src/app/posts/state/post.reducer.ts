@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { addNewPost, updatePost } from './post.actions';
+import { addNewPost, removePost, updatePost } from './post.actions';
 
 import { initialState } from './post.state';
 
@@ -18,10 +18,19 @@ export const _postReducer = createReducer(
     };
   }),
   on(updatePost, (state, action) => {
+    // iteramos sobre los post y si el id es igual que el post pasado en las props del action lo retornamos y si no coinciddee el id solo lo retornamos, map nos permite update INMUTABLY
     const lasUpdatedPost = state.postList.map((elem) => {
       return elem.id === action.post.id ? action.post : elem;
     });
-    console.log(lasUpdatedPost);
+    return {
+      ...state,
+      postList: lasUpdatedPost,
+    };
+  }),
+  on(removePost, (state, action) => {
+    const lasUpdatedPost = state.postList.filter((elem) => {
+      return elem.id !== action.id.toString();
+    });
     return {
       ...state,
       postList: lasUpdatedPost,

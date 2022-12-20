@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { catchError, map } from 'rxjs';
 import { appState } from 'src/app/state/app.state';
@@ -19,7 +19,8 @@ export class EditComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private store: Store<appState>
+    private store: Store<appState>,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.activatedRoute.params
@@ -52,5 +53,6 @@ export class EditComponent implements OnInit {
 
   onUpdate() {
     this.store.dispatch(updatePost({ post: this.updateForm.value }));
+    this.router.navigate(['/posts']);
   }
 }

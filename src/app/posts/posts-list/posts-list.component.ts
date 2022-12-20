@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { catchError, Observable, of } from 'rxjs';
 import { appState } from 'src/app/state/app.state';
+import { removePost } from '../state/post.actions';
 import { Post } from '../state/post.model';
 import { getPosts } from '../state/post.selectors';
 
@@ -28,5 +29,15 @@ export class PostsListComponent implements OnInit {
 
   onClickEdit(post: any) {
     console.log(post.id);
+  }
+
+  onDelete(post: Post) {
+    if (confirm('Are you sure you want to delete this post?')) {
+      let id = post.id ? parseInt(post.id) : 0;
+
+      if (id !== undefined && id !== null) {
+        this.store.dispatch(removePost({ id: id }));
+      }
+    }
   }
 }

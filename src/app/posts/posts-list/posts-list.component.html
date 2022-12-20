@@ -20,7 +20,14 @@
             [routerLink]="['/posts/edit', post.id]"
             routerLinkActive="router-link-active"
           >
-            Editar
+            Edit</button
+          >&nbsp;
+          <button
+            class="btn btn-secondary"
+            routerLinkActive="router-link-active"
+            (click)="onDelete(post)"
+          >
+            Remove
           </button>
         </td>
       </tr>
