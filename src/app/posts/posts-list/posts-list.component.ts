@@ -25,6 +25,9 @@ export class PostsListComponent implements OnInit {
         })
       );
     }, 1000);
+    this.store.select(getPosts).subscribe((data: any) => {
+      console.log('aqui');
+    });
   }
 
   onClickEdit(post: any) {

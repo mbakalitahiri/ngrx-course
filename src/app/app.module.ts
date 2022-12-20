@@ -1,8 +1,10 @@
 import { isDevMode, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { EffectsModule } from '@ngrx/effects';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CounterButtonsComponent } from './components/counter-buttons/counter-buttons.component';
@@ -15,7 +17,6 @@ import { CustomCounterInputComponent } from './components/custom-counter-input/c
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PostsListComponent } from './posts/posts-list/posts-list.component';
-import { appReducer } from './state/app.state';
 
 @NgModule({
   declarations: [
@@ -33,9 +34,12 @@ import { appReducer } from './state/app.state';
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot(appReducer),
+    StoreModule.forRoot({}),
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot(),
     AppRoutingModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    EffectsModule.forRoot([]),
   ],
   providers: [],
   bootstrap: [AppComponent],

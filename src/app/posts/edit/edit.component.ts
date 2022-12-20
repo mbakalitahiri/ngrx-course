@@ -30,12 +30,13 @@ export class EditComponent implements OnInit {
           id = id.toString();
           this.store.select(getPostById, { id }).subscribe((data: any) => {
             this.post = data;
-
-            this.updateForm = this.formBuilder.group({
-              id: [this.post.id],
-              title: [this.post.title, [Validators.required]],
-              description: [this.post.description, [Validators.required]],
-            });
+            if (this.post) {
+              this.updateForm = this.formBuilder.group({
+                id: [this.post.id],
+                title: [this.post.title, [Validators.required]],
+                description: [this.post.description, [Validators.required]],
+              });
+            }
           });
 
           return param['id'];
