@@ -29,7 +29,12 @@ export class EditComponent implements OnInit {
           id = id.toString();
           this.store.select(getPostById, { id }).subscribe((data: any) => {
             this.post = data;
-            console.log(data);
+
+            this.updateForm = this.formBuilder.group({
+              id: [this.post.id],
+              title: [this.post.title, [Validators.required]],
+              description: [this.post.description, [Validators.required]],
+            });
           });
 
           return param['id'];
@@ -39,18 +44,10 @@ export class EditComponent implements OnInit {
         })
       )
       .subscribe({
-        next: (resp: any) => {
-          console.log(resp);
-        },
+        next: (resp: any) => {},
         error: (e) => console.error(e),
         complete: () => console.info('complete'),
       });
-
-    this.updateForm = this.formBuilder.group({
-      id: [this.post.id],
-      title: [this.post.title, [Validators.required]],
-      description: [this.post.description, [Validators.required]],
-    });
   }
 
   onUpdate() {

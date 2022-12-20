@@ -25,6 +25,11 @@
       />
       <small id="helpId" class="text-muted">Title</small>
     </div>
+    <div
+      *ngIf="postForm.get('title')?.touched && !postForm.get('title')?.valid"
+    >
+      <div class="alert alert-warning" role="alert">Title is Mandatory</div>
+    </div>
   </div>
   <div class="col">
     <div class="mb-3">
@@ -37,6 +42,16 @@
         formControlName="description"
       />
       <small id="helpId" class="text-muted">Description</small>
+    </div>
+    <div
+      *ngIf="
+        postForm.get('description')?.touched &&
+        !postForm.get('description')?.valid
+      "
+    >
+      <div class="alert alert-warning" role="alert">
+        Description is Mandatory
+      </div>
     </div>
   </div>
 

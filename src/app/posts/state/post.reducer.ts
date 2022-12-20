@@ -18,14 +18,13 @@ export const _postReducer = createReducer(
     };
   }),
   on(updatePost, (state, action) => {
+    const lasUpdatedPost = state.postList.map((elem) => {
+      return elem.id === action.post.id ? action.post : elem;
+    });
+    console.log(lasUpdatedPost);
     return {
       ...state,
-      // postList: [...state.postList].map((element: any) => {
-      //   if (element.id === action.post.id) {
-      //     element = action.post;
-      //     return;
-      //   }
-      // }),
+      postList: lasUpdatedPost,
     };
   })
 );

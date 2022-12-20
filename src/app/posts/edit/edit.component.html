@@ -16,7 +16,7 @@
           updateForm.get('title')?.touched && !updateForm.get('title')?.valid
         "
       >
-        <span class="alert alert-warning">Title is Mandatory</span>
+        <div class="alert alert-warning" role="alert">Title is Mandatory</div>
       </div>
     </div>
   </div>
@@ -38,7 +38,9 @@
         !updateForm.get('description')?.valid
       "
     >
-      <span class="alert alert-warning">Description is Mandatory</span>
+      <div class="alert alert-warning" role="alert">
+        Description is Mandatory
+      </div>
     </div>
   </div>
 
