@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
+import { getErrorMessage } from 'src/app/shared/shared.selectors';
 import { setLoadingSpinner } from 'src/app/shared/shated.actions';
 import { OauthService } from './../service/oauth.service';
 import { loginStart } from './state/auth.actions';
@@ -18,6 +20,7 @@ export class LoginComponent implements OnInit {
   baseUrlApi = environment.baseUrlApi;
   api_key = environment.api_key;
   isSigup$ = this.oautService.signUpEmitter$;
+  errorMessage$!: Observable<string>;
 
   isLoginForm: boolean = true;
   constructor(
@@ -31,6 +34,7 @@ export class LoginComponent implements OnInit {
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(5)]],
     });
+    this.errorMessage$ = this.store.select(getErrorMessage);
   }
 
   onSignup() {
@@ -38,7 +42,7 @@ export class LoginComponent implements OnInit {
     let password = this.loginForm.get('password')?.value;
     let returnSecureToken = true;
     this.store.dispatch(loginStart({ email, password }));
-    // this.oautService.signUp(email, password, returnSecureToken);
+    this.oautService.signUp(email, password, returnSecureToken);
   }
 
   onLogin() {
@@ -54,6 +58,5 @@ export class LoginComponent implements OnInit {
       })
     );
     this.oautService.login(email, password, returnSecureToken);
-    this.router.navigate(['posts']);
   }
 }

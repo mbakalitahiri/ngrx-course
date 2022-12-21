@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, catchError, of } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 
-import { Post } from '../state/post.model';
 import { Store } from '@ngrx/store';
+import { getErrorMessage } from 'src/app/shared/shared.selectors';
 import { appState } from 'src/app/state/app.state';
-import { getPosts } from '../state/post.selectors';
 import { removePost } from '../state/post.actions';
+import { Post } from '../state/post.model';
+import { getPosts } from '../state/post.selectors';
 
 @Component({
   selector: 'app-posts-list',
@@ -15,19 +16,21 @@ import { removePost } from '../state/post.actions';
 export class PostsListComponent implements OnInit {
   posts$!: Observable<Post[]>;
   error$: any;
+  errorMessage$!: Observable<string>;
   constructor(private store: Store<appState>) {}
 
   ngOnInit(): void {
     setTimeout(() => {
       this.posts$ = this.store.select(getPosts).pipe(
         catchError((error: Error) => {
+          this.errorMessage$ = this.store.select(getErrorMessage);
           this.error$ = error;
           return of();
         })
       );
     }, 1000);
     this.store.select(getPosts).subscribe((data: any) => {
-      console.log('aqui');
+      console.log('post-list component, ngOnInit');
     });
   }
 
