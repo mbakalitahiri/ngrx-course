@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { HttpClient } from '@angular/common/http';
-import { OauthService } from './../service/oauth.service';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { environment } from 'src/app/environments/environment';
+import { setLoadingSpinner } from 'src/app/shared/shated.actions';
+import { OauthService } from './../service/oauth.service';
 import { loginStart } from './state/auth.actions';
 
 @Component({
@@ -21,9 +22,9 @@ export class LoginComponent implements OnInit {
   isLoginForm: boolean = true;
   constructor(
     private formBuilder: FormBuilder,
-    private _http: HttpClient,
     private oautService: OauthService,
-    private store: Store
+    private store: Store,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -43,7 +44,16 @@ export class LoginComponent implements OnInit {
   onLogin() {
     let email = this.loginForm.get('email')?.value;
     let password = this.loginForm.get('password')?.value;
+
     let returnSecureToken = true;
+    this.store.dispatch(loginStart({ email, password }));
+
+    this.store.dispatch(
+      setLoadingSpinner({
+        showLoading: true,
+      })
+    );
     this.oautService.login(email, password, returnSecureToken);
+    this.router.navigate(['posts']);
   }
 }

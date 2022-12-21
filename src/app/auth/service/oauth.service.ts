@@ -2,15 +2,16 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { OauthResponseData } from './../models/OauthResponseData';
+import { Store } from '@ngrx/store';
 import { User } from '../models/user.model';
+import { OauthResponseData } from './../models/OauthResponseData';
 
 @Injectable()
 export class OauthService {
   private signUpEmitter = new BehaviorSubject<boolean>(false);
   signUpEmitter$ = this.signUpEmitter.asObservable();
 
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private store: Store) {}
 
   onClickSignUp(value: boolean) {
     this.signUpEmitter.next(value);
