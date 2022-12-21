@@ -37,10 +37,13 @@ export class LoginComponent implements OnInit {
     let password = this.loginForm.get('password')?.value;
     let returnSecureToken = true;
     this.store.dispatch(loginStart({ email, password }));
-    this.oautService.signUp(email, password, returnSecureToken);
+    // this.oautService.signUp(email, password, returnSecureToken);
   }
 
   onLogin() {
-    console.log('login');
+    let email = this.loginForm.get('email')?.value;
+    let password = this.loginForm.get('password')?.value;
+    let returnSecureToken = true;
+    this.oautService.login(email, password, returnSecureToken);
   }
 }

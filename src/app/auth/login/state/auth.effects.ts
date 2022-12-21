@@ -3,6 +3,7 @@ import { exhaustMap, map } from 'rxjs';
 import { loginStart, loginSuccess } from './auth.actions';
 
 import { Injectable } from '@angular/core';
+import { OauthResponseData } from './../../models/OauthResponseData';
 import { OauthService } from './../../service/oauth.service';
 
 @Injectable()
@@ -15,11 +16,11 @@ export class AuthEffects {
       ofType(loginStart),
       exhaustMap((action) => {
         return this.oauthService
-          .signUp(action.email, action.password, this.returnSecureToken)
+          .login(action.email, action.password, this.returnSecureToken)
           .pipe(
-            map((data) => {
-              console.log(data);
-              return loginSuccess();
+            map((data: OauthResponseData) => {
+              const user = this.oauthService.formatUser(data);
+              return loginSuccess({ user: user });
             })
           );
       })
