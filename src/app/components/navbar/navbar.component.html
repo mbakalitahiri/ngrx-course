@@ -84,8 +84,7 @@
             <a
               class="nav-link active"
               aria-current="page"
-              [routerLink]="['/login']"
-              routerLinkActive="router-link-active"
+              (click)="onClickSignUp()"
               >Sign up</a
             >
           </li>
@@ -95,6 +94,7 @@
               aria-current="page"
               [routerLink]="['/login']"
               routerLinkActive="router-link-active"
+              (click)="onClickLogin()"
               >Login</a
             >
           </li>

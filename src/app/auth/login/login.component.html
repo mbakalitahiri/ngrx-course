@@ -1,49 +1,103 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div class="row g-3 align-items-center">
-    <h1>Login</h1>
-    <div class="col-auto">
-      <label for="" class="form-label">Name</label>
-      <input
-        type="text"
-        formControlName="email"
-        name="email"
-        class="form-control"
-        placeholder=""
-        aria-describedby="helpId"
-      />
-      <small id="helpId" class="text-muted">Help text</small>
-      <div
-        *ngIf="
-          loginForm.get('email')?.touched && !loginForm.get('email')?.valid
-        "
-        class="aler alert-danger"
-      >
-        Email is mandatory
+<div *ngIf="isSigup$ | async">
+  <form [formGroup]="loginForm" (ngSubmit)="onSignup()">
+    <div class="row g-3 align-items-center">
+      <h1>Sign Up Form</h1>
+      <div class="col-auto">
+        <label for="" class="form-label">Name</label>
+        <input
+          type="text"
+          formControlName="email"
+          name="email"
+          class="form-control"
+          placeholder=""
+          aria-describedby="helpId"
+        />
+        <small id="helpId" class="text-muted">Help text</small>
+        <div
+          *ngIf="
+            loginForm.get('email')?.touched && !loginForm.get('email')?.valid
+          "
+          class="aler alert-danger"
+        >
+          Email is mandatory
+        </div>
+      </div>
+      <div class="col-auto">
+        <label for="" class="form-label">Name</label>
+        <input
+          type="password"
+          formControlName="password"
+          name="password"
+          class="form-control"
+          placeholder=""
+          aria-describedby="helpId"
+        />
+        <small id="helpId" class="text-muted">Help text</small>
+        <div
+          *ngIf="
+            loginForm.get('password')?.touched &&
+            !loginForm.get('password')?.valid
+          "
+          class="aler alert-danger"
+        >
+          Password is mandatory
+        </div>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary">Submit</button>
       </div>
     </div>
-    <div class="col-auto">
-      <label for="" class="form-label">Name</label>
-      <input
-        type="password"
-        formControlName="password"
-        name="password"
-        class="form-control"
-        placeholder=""
-        aria-describedby="helpId"
-      />
-      <small id="helpId" class="text-muted">Help text</small>
-      <div
-        *ngIf="
-          loginForm.get('password')?.touched &&
-          !loginForm.get('password')?.valid
-        "
-        class="aler alert-danger"
-      >
-        Password is mandatory
+  </form>
+</div>
+<div *ngIf="!(isSigup$ | async)">
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <div class="row g-3 align-items-center">
+      <h1>Login Form</h1>
+      <div class="col-auto">
+        <label for="" class="form-label">Name</label>
+        <input
+          type="text"
+          formControlName="email"
+          name="email"
+          class="form-control"
+          placeholder=""
+          aria-describedby="helpId"
+        />
+        <small id="helpId" class="text-muted">Help text</small>
+        <div
+          *ngIf="
+            loginForm.get('email')?.touched && !loginForm.get('email')?.valid
+          "
+          class="aler alert-danger"
+        >
+          Email is mandatory
+        </div>
+      </div>
+      <div class="col-auto">
+        <label for="" class="form-label">Name</label>
+        <input
+          type="password"
+          formControlName="password"
+          name="password"
+          class="form-control"
+          placeholder=""
+          aria-describedby="helpId"
+        />
+        <small id="helpId" class="text-muted">Help text</small>
+        <div
+          *ngIf="
+            loginForm.get('password')?.touched &&
+            !loginForm.get('password')?.valid
+          "
+          class="aler alert-danger"
+        >
+          Password is mandatory
+        </div>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary">Submit</button>
       </div>
     </div>
-    <div class="col-auto">
-      <button class="btn btn-primary">Submit</button>
-    </div>
-  </div>
-</form>
+  </form>
+</div>
+{{ isSigup$ | async | json }}
