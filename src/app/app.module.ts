@@ -14,6 +14,7 @@ import { CustomCounterInputComponent } from './components/custom-counter-input/c
 import { EffectsModule } from '@ngrx/effects';
 import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { OauthService } from './auth/service/oauth.service';
 import { PostsListComponent } from './posts/posts-list/posts-list.component';
@@ -33,6 +34,7 @@ import { StoreModule } from '@ngrx/store';
     CustomCounterInputComponent,
     HomeComponent,
     PostsListComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,
