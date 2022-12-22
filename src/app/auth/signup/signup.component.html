@@ -1,1 +1,38 @@
-<p>signup works!</p>
+<h3>Signup</h3>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="mb-3 my-2">
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control"
+        aria-describedby="helpId"
+        placeholder=""
+        formControlName="email"
+      />
+      <small id="helpId" class="form-text text-muted">Email</small>
+    </div>
+    <dir *ngIf="form.get('email')?.touched && !form.get('email')?.valid">
+      <span class="alert alert-danger">Email is mandatory</span>
+    </dir>
+  </div>
+  <div class="mb-3">
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control"
+        aria-describedby="helpId"
+        placeholder=""
+        formControlName="password"
+      />
+      <small id="helpId" class="form-text text-muted">Password</small>
+    </div>
+    <dir *ngIf="form.get('password')?.touched && !form.get('password')?.valid">
+      <span class="alert alert-danger">Password is mandatory</span>
+    </dir>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-success btn-block" [disabled]="!form.valid">
+      Enviar
+    </button>
+  </div>
+</form>

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { loginStart, signupStart } from './state/auth.actions';
 
+import { OauthService } from './../service/oauth.service';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
 import { getErrorMessage } from 'src/app/shared/shared.selectors';
 import { setLoadingSpinner } from 'src/app/shared/shated.actions';
-import { OauthService } from './../service/oauth.service';
-import { loginStart } from './state/auth.actions';
 
 @Component({
   selector: 'app-login',
@@ -41,8 +41,7 @@ export class LoginComponent implements OnInit {
     let email = this.loginForm.get('email')?.value;
     let password = this.loginForm.get('password')?.value;
     let returnSecureToken = true;
-    this.store.dispatch(loginStart({ email, password }));
-    this.oautService.signUp(email, password, returnSecureToken);
+    this.store.dispatch(signupStart({ email, password }));
   }
 
   onLogin() {
@@ -57,6 +56,5 @@ export class LoginComponent implements OnInit {
         showLoading: true,
       })
     );
-    this.oautService.login(email, password, returnSecureToken);
   }
 }

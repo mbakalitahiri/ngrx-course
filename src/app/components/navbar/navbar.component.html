@@ -87,7 +87,8 @@
             <a
               class="nav-link active"
               aria-current="page"
-              (click)="onClickSignUp()"
+              [routerLink]="['signup']"
+              routerLinkActive="router-link-active"
               *ngIf="!(isAuthenticated$ | async)"
               >Sign up</a
             >

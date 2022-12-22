@@ -2,9 +2,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { OauthResponseData } from './../models/OauthResponseData';
 import { Store } from '@ngrx/store';
 import { User } from '../models/user.model';
-import { OauthResponseData } from './../models/OauthResponseData';
 
 @Injectable()
 export class OauthService {
@@ -21,6 +21,7 @@ export class OauthService {
     this.signUpEmitter.next(false);
   }
 
+  //!signUp
   signUp(
     email: string,
     password: string,
@@ -46,6 +47,7 @@ export class OauthService {
     return user;
   }
 
+  //!signInWithPassword
   login(
     email: string,
     password: string,
