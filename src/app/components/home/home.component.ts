@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+
 import { Store } from '@ngrx/store';
-import { getPosts } from 'src/app/posts/state/post.selectors';
 
 @Component({
   selector: 'app-home',
@@ -10,9 +10,5 @@ import { getPosts } from 'src/app/posts/state/post.selectors';
 export class HomeComponent implements OnInit {
   constructor(private store: Store) {}
 
-  ngOnInit(): void {
-    this.store.select(getPosts).subscribe((data: any) => {
-      console.log(data);
-    });
-  }
+  ngOnInit(): void {}
 }

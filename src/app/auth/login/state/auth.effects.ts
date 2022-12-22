@@ -1,16 +1,16 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of } from 'rxjs';
+import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { loginStart, loginSuccess } from './auth.actions';
-
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import {
   setErrorMessage,
   setLoadingSpinner,
 } from 'src/app/shared/shated.actions';
+
+import { Injectable } from '@angular/core';
 import { OauthResponseData } from './../../models/OauthResponseData';
 import { OauthService } from './../../service/oauth.service';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class AuthEffects {
@@ -32,7 +32,7 @@ export class AuthEffects {
             map((data: OauthResponseData) => {
               const user = this.oauthService.formatUser(data);
               this.store.dispatch(setLoadingSpinner({ showLoading: false }));
-              this.router.navigate(['posts']);
+              // this.router.navigate(['/']);
               this.store.dispatch(
                 setErrorMessage({
                   errorMessage: '',
@@ -52,4 +52,16 @@ export class AuthEffects {
       })
     );
   });
+
+  loginRedirect$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(loginSuccess),
+        tap((action) => {
+          this.router.navigate(['/']);
+        })
+      );
+    },
+    { dispatch: false }
+  );
 }
