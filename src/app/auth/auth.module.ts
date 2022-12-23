@@ -1,5 +1,4 @@
 import { AuthComponent } from './auth.component';
-import { AuthEffects } from './login/state/auth.effects';
 import { AuthRoutingModule } from './auth-routing.module';
 import { CommonModule } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
@@ -17,7 +16,7 @@ import { SignupComponent } from './signup/signup.component';
     ReactiveFormsModule,
     // StoreModule.forFeature(AUTH_STATE_NAME, authReducer),
     HttpClientModule,
-    EffectsModule.forFeature([AuthEffects]),
+    EffectsModule.forFeature(),
   ],
 })
 export class AuthModule {}

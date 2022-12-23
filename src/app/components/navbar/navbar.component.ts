@@ -28,4 +28,8 @@ export class NavbarComponent implements OnInit {
   onClickLogin() {
     this.oauthService.onClickLogin(false);
   }
+
+  onLogout() {
+    alert('intentando desloguearme');
+  }
 }

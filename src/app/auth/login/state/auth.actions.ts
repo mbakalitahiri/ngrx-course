@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 
 import { User } from '../../models/user.model';
 
-//!signup
+//!login
 export const LOGIN_START = '[auth page] login start';
 export const LOGIN_SUCCESS = '[auth page] login success';
 export const LOGIN_FAIL = '[auth page] login fail';
@@ -13,7 +13,7 @@ export const loginStart = createAction(
 );
 export const loginSuccess = createAction(
   LOGIN_SUCCESS,
-  props<{ user: User }>()
+  props<{ user: User | any }>()
 );
 export const loginFail = createAction(LOGIN_FAIL, props<{ id: number }>());
 
@@ -29,3 +29,7 @@ export const signupSuccess = createAction(
   SIGNUP_SUCCESS,
   props<{ user: User }>()
 );
+
+//! auto login
+export const AUTO_LOGIN_START = '[auth page] auto login start';
+export const autoLoginStart = createAction(AUTO_LOGIN_START);

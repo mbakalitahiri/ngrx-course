@@ -6,6 +6,7 @@ import { initialState } from './auth.state';
 export const _authReducer = createReducer(
   initialState,
   on(loginSuccess, (state, action) => {
+    console.log(`dentro del _autReducer, loginsuccess ${action.user}`);
     return {
       ...state,
       user: action.user,

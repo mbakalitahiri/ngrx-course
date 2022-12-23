@@ -8,6 +8,8 @@ import { User } from '../models/user.model';
 
 @Injectable()
 export class OauthService {
+  timeoutInteval: any;
+
   private signUpEmitter = new BehaviorSubject<boolean>(false);
   signUpEmitter$ = this.signUpEmitter.asObservable();
 
@@ -57,5 +59,59 @@ export class OauthService {
       'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBiUS6r9qoX_L4MvO-v0-BQ2SrADntI2uI',
       { email, password, returnSecureToken }
     );
+  }
+
+  //!save user in local sorage
+  saveUserLocalStorage(user: User) {
+    localStorage.setItem('userData', JSON.stringify(user));
+    //!We have to crear a timer in order to autologin and logout when the token has expired
+    const todaysDAte = new Date().getTime();
+    const expirationDate = user.expirationDate.getTime();
+    const timeInterval = +expirationDate - todaysDAte;
+
+    console.log(`_expirationDate: ${timeInterval}`);
+
+    this.timeoutInteval = setTimeout(() => {
+      //logout functionality or get refresh token
+    }, timeInterval);
+  }
+
+  setUserInLocalStorage(user: User) {
+    debugger;
+    localStorage.setItem('userData', JSON.stringify(user));
+
+    this.runTimeoutInterval(user);
+  }
+
+  runTimeoutInterval(user: User) {
+    const todaysDAte = new Date().getTime();
+    const timeInterval = +user.expirationDate - todaysDAte;
+
+    console.log(`_expirationDate: ${timeInterval}`);
+
+    this.timeoutInteval = setTimeout(() => {
+      //logout functionality or get refresh token
+    }, timeInterval);
+  }
+
+  getUserFromLocalStorage() {
+    const userDataString = localStorage.getItem('userData');
+
+    if (userDataString) {
+      const userData = JSON.parse(userDataString);
+      let expirationDate = +new Date(userData._expirationDate).getTime();
+      var date = new Date(expirationDate);
+      const user = new User(
+        userData._email,
+        userData.token,
+        userData.localId,
+        date
+      );
+
+      this.runTimeoutInterval(user);
+      return user;
+    } else {
+      return null;
+    }
   }
 }

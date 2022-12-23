@@ -1,11 +1,12 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import {
+  autoLoginStart,
   loginStart,
   loginSuccess,
   signupStart,
   signupSuccess,
 } from './auth.actions';
+import { catchError, exhaustMap, map, mergeMap, of, tap } from 'rxjs';
 import {
   setErrorMessage,
   setLoadingSpinner,
@@ -28,7 +29,6 @@ export class AuthEffects {
   returnSecureToken = true;
 
   login$ = createEffect(() => {
-    alert('dentro del login effect');
     return this.actions$.pipe(
       ofType(loginStart),
       exhaustMap((action) => {
@@ -37,6 +37,7 @@ export class AuthEffects {
           .pipe(
             map((data: OauthResponseData) => {
               const user = this.oauthService.formatUser(data);
+              this.oauthService.saveUserLocalStorage(user);
               this.store.dispatch(setLoadingSpinner({ showLoading: false }));
               // this.router.navigate(['/']);
               this.store.dispatch(
@@ -44,6 +45,7 @@ export class AuthEffects {
                   errorMessage: '',
                 })
               );
+              this.oauthService.saveUserLocalStorage(user);
               return loginSuccess({ user: user });
             }),
             catchError((error: any) => {
@@ -81,6 +83,8 @@ export class AuthEffects {
           .pipe(
             map((data: OauthResponseData) => {
               const user = this.oauthService.formatUser(data);
+              this.oauthService.saveUserLocalStorage(user);
+
               this.store.dispatch(setLoadingSpinner({ showLoading: false }));
               this.store.dispatch(
                 setErrorMessage({
@@ -104,7 +108,6 @@ export class AuthEffects {
 
   signupRedirect$ = createEffect(
     () => {
-      alert('dendtro signupRedirect$');
       return this.actions$.pipe(
         ofType(signupSuccess),
         tap((action) => {
@@ -114,4 +117,14 @@ export class AuthEffects {
     },
     { dispatch: false }
   );
+
+  $autoLogin$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(autoLoginStart),
+      mergeMap((action) => {
+        const user = this.oauthService.getUserFromLocalStorage();
+        return of(loginSuccess({ user: user }));
+      })
+    );
+  });
 }

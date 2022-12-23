@@ -3,6 +3,7 @@ import { NgModule, isDevMode } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthEffects } from './auth/login/state/auth.effects';
 import { BrowserModule } from '@angular/platform-browser';
 import { CounterButtonsComponent } from './components/counter-buttons/counter-buttons.component';
 import { CounterButtonsServiceComponent } from './components/counterSevice/counter-buttons-service/counter-buttons-service.component';
@@ -45,7 +46,7 @@ import { appReducer } from './state/app.state';
     FroalaViewModule.forRoot(),
     AppRoutingModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([AuthEffects]),
     HttpClientModule,
     ReactiveFormsModule,
   ],
