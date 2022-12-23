@@ -101,7 +101,6 @@
               aria-current="page"
               [routerLink]="['/login']"
               routerLinkActive="router-link-active"
-              (click)="onClickLogin()"
               *ngIf="!(isAuthenticated$ | async)"
               >Login</a
             >

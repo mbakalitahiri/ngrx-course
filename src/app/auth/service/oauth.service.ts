@@ -2,9 +2,10 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { OauthResponseData } from './../models/OauthResponseData';
 import { Store } from '@ngrx/store';
+import { logout } from '../login/state/auth.actions';
 import { User } from '../models/user.model';
+import { OauthResponseData } from './../models/OauthResponseData';
 
 @Injectable()
 export class OauthService {
@@ -91,6 +92,7 @@ export class OauthService {
 
     this.timeoutInteval = setTimeout(() => {
       //logout functionality or get refresh token
+      this.store.dispatch(logout());
     }, timeInterval);
   }
 
@@ -112,6 +114,14 @@ export class OauthService {
       return user;
     } else {
       return null;
+    }
+  }
+
+  logout() {
+    localStorage.removeItem('userData');
+    if (this.timeoutInteval) {
+      clearTimeout(this.timeoutInteval);
+      this.timeoutInteval = null;
     }
   }
 }

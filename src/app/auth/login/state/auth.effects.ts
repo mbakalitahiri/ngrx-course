@@ -1,22 +1,23 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {
-  autoLoginStart,
-  loginStart,
-  loginSuccess,
-  signupStart,
-  signupSuccess,
-} from './auth.actions';
 import { catchError, exhaustMap, map, mergeMap, of, tap } from 'rxjs';
 import {
   setErrorMessage,
   setLoadingSpinner,
 } from 'src/app/shared/shated.actions';
+import {
+  autoLoginStart,
+  loginStart,
+  loginSuccess,
+  logout,
+  signupStart,
+  signupSuccess,
+} from './auth.actions';
 
 import { Injectable } from '@angular/core';
-import { OauthResponseData } from './../../models/OauthResponseData';
-import { OauthService } from './../../service/oauth.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { OauthResponseData } from './../../models/OauthResponseData';
+import { OauthService } from './../../service/oauth.service';
 
 @Injectable()
 export class AuthEffects {
@@ -74,7 +75,6 @@ export class AuthEffects {
   );
 
   signup$ = createEffect(() => {
-    alert('dentro del login effect');
     return this.actions$.pipe(
       ofType(signupStart),
       exhaustMap((action) => {
@@ -127,4 +127,17 @@ export class AuthEffects {
       })
     );
   });
+
+  $autoLogout$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(logout),
+        map((action) => {
+          this.oauthService.logout();
+          this.router.navigate(['login']);
+        })
+      );
+    },
+    { dispatch: false }
+  );
 }

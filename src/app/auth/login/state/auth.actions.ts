@@ -17,6 +17,10 @@ export const loginSuccess = createAction(
 );
 export const loginFail = createAction(LOGIN_FAIL, props<{ id: number }>());
 
+//! Logout
+export const LOGOUT = '[auth page] logout';
+export const logout = createAction(LOGOUT);
+
 //!signup
 export const SIGNUP_START = '[auth page] sigup start';
 export const SIGNUP_SUCCESS = '[auth page] sigup success';
