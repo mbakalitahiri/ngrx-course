@@ -41,13 +41,14 @@ export class AuthEffects {
               this.oauthService.saveUserLocalStorage(user);
               this.store.dispatch(setLoadingSpinner({ showLoading: false }));
               // this.router.navigate(['/']);
+
               this.store.dispatch(
                 setErrorMessage({
                   errorMessage: '',
                 })
               );
               this.oauthService.saveUserLocalStorage(user);
-              return loginSuccess({ user: user });
+              return loginSuccess({ user: user, redirect: true });
             }),
             catchError((error: any) => {
               this.store.dispatch(setLoadingSpinner({ showLoading: false }));
@@ -67,7 +68,9 @@ export class AuthEffects {
       return this.actions$.pipe(
         ofType(loginSuccess),
         tap((action) => {
-          this.router.navigate(['/']);
+          if (action.redirect == true) {
+            this.router.navigate(['/']);
+          }
         })
       );
     },
@@ -123,7 +126,7 @@ export class AuthEffects {
       ofType(autoLoginStart),
       mergeMap((action) => {
         const user = this.oauthService.getUserFromLocalStorage();
-        return of(loginSuccess({ user: user }));
+        return of(loginSuccess({ user: user, redirect: false }));
       })
     );
   });
