@@ -1,6 +1,6 @@
 <h3>Edit Post</h3>
 <form [formGroup]="updateForm" class="d-flex" (ngSubmit)="onUpdate()">
-  <div class="col">
+  <div class="col-5">
     <div class="mb-3">
       <input
         type="text"
@@ -20,8 +20,8 @@
       </div>
     </div>
   </div>
-  <div class="col">
-    <div class="mb-3">
+  <div class="col-5">
+    <div class="mb-3 mx-2">
       <input
         type="text"
         class="form-control"
@@ -44,9 +44,13 @@
     </div>
   </div>
 
-  <div class="d-grid gap-2">
-    <button class="btn btn-primary" [disabled]="!updateForm.valid">
-      Button
-    </button>
+  <div class="row">
+    <div class="col-2">
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary mx-1" [disabled]="!updateForm.valid">
+          Button
+        </button>
+      </div>
+    </div>
   </div>
 </form>

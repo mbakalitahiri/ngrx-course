@@ -4,7 +4,7 @@ import { catchError, Observable, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { getErrorMessage } from 'src/app/shared/shared.selectors';
 import { appState } from 'src/app/state/app.state';
-import { removePost } from '../state/post.actions';
+import { loadPosts, removePost } from '../state/post.actions';
 import { Post } from '../state/post.model';
 import { getPosts } from '../state/post.selectors';
 
@@ -29,9 +29,8 @@ export class PostsListComponent implements OnInit {
         })
       );
     }, 1000);
-    this.store.select(getPosts).subscribe((data: any) => {
-      console.log('post-list component, ngOnInit');
-    });
+    this.store.select(getPosts).subscribe((data: any) => {});
+    this.store.dispatch(loadPosts());
   }
 
   onClickEdit(post: any) {
