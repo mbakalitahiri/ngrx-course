@@ -31,4 +31,12 @@ export class PostService {
       post
     );
   }
+
+
+  updatePost(postId: number) {
+    return this._http.put(
+      'https://autenticacion-82c64-default-rtdb.europe-west1.firebasedatabase.app/posts.json',
+      postId
+    );
+  }
 }

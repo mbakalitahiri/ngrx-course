@@ -9,6 +9,7 @@ import {
   addPostSuccess,
   loadPosts,
   loadSuccessPosts,
+  updatePost
 } from './post.actions';
 
 @Injectable({ providedIn: 'root' })
@@ -40,7 +41,23 @@ export class PostEffects {
         return this.postService.addPost(action.post).pipe(
           map((data: any) => {
             const post = { ...action.post, id: data.name };
+            console.log(post)
             return addPostSuccess({ post: post });
+          })
+        );
+      })
+    );
+  });
+
+
+  updatePost$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(updatePost),
+      mergeMap((action: any) => {
+        return this.postService.updatePost(action.post).pipe(
+          map((data: any) => {
+            alert('dentro del update effect')
+             return data
           })
         );
       })
