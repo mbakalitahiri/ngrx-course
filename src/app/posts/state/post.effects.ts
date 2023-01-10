@@ -9,6 +9,10 @@ import {
   addPostSuccess,
   loadPosts,
   loadSuccessPosts,
+  removePost,
+  removeSuccessPost,
+  updatePost,
+  updatePostSuccess,
 } from './post.actions';
 
 @Injectable({ providedIn: 'root' })
@@ -33,14 +37,40 @@ export class PostEffects {
     );
   });
 
-  postPost$ = createEffect(() => {
+  addPost$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(addNewPost),
-      mergeMap((action: any) => {
+      mergeMap((action) => {
         return this.postService.addPost(action.post).pipe(
           map((data: any) => {
             const post = { ...action.post, id: data.name };
             return addPostSuccess({ post: post });
+          })
+        );
+      })
+    );
+  });
+
+  updatePost$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(updatePost),
+      switchMap((action) => {
+        return this.postService.updatePost(action.post).pipe(
+          map((data: any) => {
+            return updatePostSuccess({ post: action.post });
+          })
+        );
+      })
+    );
+  });
+
+  deletePost$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(removePost),
+      switchMap((action) => {
+        return this.postService.deletePost(action.id).pipe(
+          map((data: any) => {
+            return removeSuccessPost({ id: action.id });
           })
         );
       })

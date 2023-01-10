@@ -31,7 +31,7 @@ export class OauthService {
     returnSecureToken: boolean
   ): Observable<OauthResponseData> {
     return this._http.post<OauthResponseData>(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBiUS6r9qoX_L4MvO-v0-BQ2SrADntI2uI',
+      'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDxrFGfoUIsQqddPAXBZKe6aSgqZTq_eTk',
       { email, password, returnSecureToken }
     );
   }
@@ -57,7 +57,7 @@ export class OauthService {
     returnSecureToken: boolean
   ): Observable<OauthResponseData> {
     return this._http.post<OauthResponseData>(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBiUS6r9qoX_L4MvO-v0-BQ2SrADntI2uI',
+      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDxrFGfoUIsQqddPAXBZKe6aSgqZTq_eTk',
       { email, password, returnSecureToken }
     );
   }
@@ -67,7 +67,7 @@ export class OauthService {
     localStorage.setItem('userData', JSON.stringify(user));
     //!We have to crear a timer in order to autologin and logout when the token has expired
     const todaysDAte = new Date().getTime();
-    const expirationDate = user.expirationDate.getTime();
+    const expirationDate = user._expirationDate.getTime();
     const timeInterval = +expirationDate - todaysDAte;
 
     console.log(`_expirationDate: ${timeInterval}`);
@@ -78,7 +78,6 @@ export class OauthService {
   }
 
   setUserInLocalStorage(user: User) {
-    debugger;
     localStorage.setItem('userData', JSON.stringify(user));
 
     this.runTimeoutInterval(user);
@@ -86,7 +85,7 @@ export class OauthService {
 
   runTimeoutInterval(user: User) {
     const todaysDAte = new Date().getTime();
-    const timeInterval = +user.expirationDate - todaysDAte;
+    const timeInterval = +user._expirationDate - todaysDAte;
 
     console.log(`_expirationDate: ${timeInterval}`);
 

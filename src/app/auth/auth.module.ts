@@ -1,11 +1,12 @@
-import { AuthComponent } from './auth.component';
-import { AuthRoutingModule } from './auth-routing.module';
 import { CommonModule } from '@angular/common';
-import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
-import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthRoutingModule } from './auth-routing.module';
+import { AuthComponent } from './auth.component';
+import { LoginComponent } from './login/login.component';
+import { OauthService } from './service/oauth.service';
 import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
@@ -18,5 +19,6 @@ import { SignupComponent } from './signup/signup.component';
     HttpClientModule,
     EffectsModule.forFeature(),
   ],
+  providers: [OauthService],
 })
 export class AuthModule {}

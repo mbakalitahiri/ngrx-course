@@ -53,6 +53,7 @@ export class EditComponent implements OnInit {
   }
 
   onUpdate() {
+    console.log(this.updateForm.value);
     this.store.dispatch(updatePost({ post: this.updateForm.value }));
     this.router.navigate(['/posts']);
   }

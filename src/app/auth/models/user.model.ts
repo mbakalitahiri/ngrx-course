@@ -3,19 +3,23 @@ export class User {
     private _email: string,
     private token: string,
     private localId: string,
-    private _expirationDate: Date
+    private expirationDate: Date
   ) {}
 
-  public get expirationDate(): Date {
-    return this._expirationDate;
+  public get _expirationDate(): Date {
+    return this.expirationDate;
   }
-  public set expirationDate(value: Date) {
+  public set _expirationDate(value: Date) {
     this._expirationDate = value;
   }
   public get email(): string {
-    return this._email;
+    return this.email;
   }
   public set email(value: string) {
-    this._email = value;
+    this.email = value;
+  }
+
+  public getToken() {
+    return this.token;
   }
 }

@@ -20,16 +20,14 @@ export class PostsListComponent implements OnInit {
   constructor(private store: Store<appState>) {}
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.posts$ = this.store.select(getPosts).pipe(
-        catchError((error: Error) => {
-          this.errorMessage$ = this.store.select(getErrorMessage);
-          this.error$ = error;
-          return of();
-        })
-      );
-    }, 1000);
-    this.store.select(getPosts).subscribe((data: any) => {});
+    this.posts$ = this.store.select(getPosts).pipe(
+      catchError((error: Error) => {
+        this.errorMessage$ = this.store.select(getErrorMessage);
+        this.error$ = error;
+        return of();
+      })
+    );
+
     this.store.dispatch(loadPosts());
   }
 
@@ -39,7 +37,7 @@ export class PostsListComponent implements OnInit {
 
   onDelete(post: Post) {
     if (confirm('Are you sure you want to delete this post?')) {
-      let id = post.id ? parseInt(post.id) : 0;
+      let id = post.id ? post.id : '';
 
       if (id !== undefined && id !== null) {
         this.store.dispatch(removePost({ id: id }));

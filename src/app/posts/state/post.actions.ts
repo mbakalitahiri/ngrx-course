@@ -18,7 +18,12 @@ export const addPostSuccess = createAction(
 //! Update post action
 export const UPDATE_POST_ACTION = '[post page] update post';
 export const updatePost = createAction(
-  ADD_POST_ACTION,
+  UPDATE_POST_ACTION,
+  props<{ post: Post }>()
+);
+export const UPDATE_POST_SUCCESS_ACTION = '[post page] update post success';
+export const updatePostSuccess = createAction(
+  UPDATE_POST_SUCCESS_ACTION,
   props<{ post: Post }>()
 );
 
@@ -26,7 +31,13 @@ export const updatePost = createAction(
 export const DELETE_POST_ACTION = '[post page] delete post';
 export const removePost = createAction(
   DELETE_POST_ACTION,
-  props<{ id: number }>()
+  props<{ id: string }>()
+);
+
+export const DELETE_POST__SUCCESS_ACTION = '[post page] delete post success';
+export const removeSuccessPost = createAction(
+  DELETE_POST__SUCCESS_ACTION,
+  props<{ id: string }>()
 );
 
 //! Load post action
